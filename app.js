@@ -1,4 +1,5 @@
 let inventories = [
+
     {
         name: "Mined Items: ",
         value: 0
@@ -64,10 +65,6 @@ let inventElem = document.getElementById("inventory")
 let upgradeElem = document.getElementById("upgrades")
 let modElem = document.getElementById("modification")
 
-
-
-
-
 //templates
 function inventoryTemplate(inventory) {
     return `<div class="col-4">
@@ -84,7 +81,6 @@ function modTemplate(modification) {
     <p>${modification.name}<span>${modification.value}</span></p>
 </div > `
 }
-
 
 //drawFunctions
 function drawInventory() {
@@ -103,7 +99,6 @@ function drawUpgrades() {
 
     upgradeElem.innerHTML = template
 }
-
 function drawModifications() {
     let template = ""
     modifications.forEach(modification => {
@@ -114,10 +109,17 @@ function drawModifications() {
 }
 
 
-drawUpgrades()
-drawInventory()
-drawModifications()
-
-function getResources() {
-
+function getResource() {
+    let newCount = inventories[0].value++
+    console.log(newCount)
+    update()
 }
+
+
+function update() {
+    drawUpgrades()
+    drawInventory()
+    drawModifications()
+}
+
+update()
