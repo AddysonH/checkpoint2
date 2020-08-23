@@ -1,50 +1,50 @@
 let inventories = [
 
     {
-        name: "Mined Items: ",
+        name: "Herbs: ",
         value: 0
     },
 
     {
-        name: "Upgrade1: ",
+        name: "Trimmer: ",
         value: 0
     },
 
     {
-        name: "Upgrade2: ",
+        name: "SpeedGrowth: ",
         value: 0
     },
 
     {
-        name: "Upgrade3: ",
+        name: "Gardener: ",
         value: 0
     },
 
     {
-        name: "Upgrade4: ",
+        name: "Sprinklers: ",
         value: 0
     }
 ]
 
 let upgrades = [
     {
-        name: "Upgrade1 =",
-        value: 0
+        name: "Trimmer",
+        value: 10
     },
 
     {
-        name: "Upgrade1 =",
-        value: 0
+        name: "Speedgrowth",
+        value: 20
     },
 
     {
-        name: "Upgrade1 =",
-        value: 0
+        name: "Gardener",
+        value: 30
     },
 
     {
-        name: "Upgrade1 =",
-        value: 0
+        name: "Sprinklers",
+        value: 40
     }
 ]
 
@@ -73,9 +73,10 @@ function inventoryTemplate(inventory) {
 }
 function upgradeTemplate(upgrade) {
     return `<div class="col-3">
-    <h5>${upgrade.name} <span>${upgrade.value}</span></h5>
+    <h5>${upgrade.name} $<button  id="buttons" onclick="getUpgrade()"><span>${upgrade.value}</span></button></h5>
 </div>`
 }
+
 function modTemplate(modification) {
     return `<div class="col-6">
     <p>${modification.name}<span>${modification.value}</span></p>
@@ -91,6 +92,7 @@ function drawInventory() {
 
     inventElem.innerHTML = template
 }
+
 function drawUpgrades() {
     let template = ""
     upgrades.forEach(upgrade => {
@@ -99,6 +101,7 @@ function drawUpgrades() {
 
     upgradeElem.innerHTML = template
 }
+
 function drawModifications() {
     let template = ""
     modifications.forEach(modification => {
@@ -111,9 +114,31 @@ function drawModifications() {
 
 function getResource() {
     let newCount = inventories[0].value++
-    console.log(newCount)
+    newCount
+
+    //let harvestInterval = setInterval(getResource, 500)
+
+    if (inventories[1].value < upgrades[0].value) {
+
+    }
+
     update()
 }
+
+function getUpgrade() {
+    let getTrimmer = inventories[1].value++
+    getTrimmer
+
+    let harvestInterval = setInterval(getResource, 500)
+
+    harvestInterval
+
+    update()
+}
+
+//if  inventories[1].value = 1 which is the trimmers then auto count needs to happen on the inventory[0].value which is the herbs
+
+
 
 
 function update() {
