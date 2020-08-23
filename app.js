@@ -1,62 +1,56 @@
 let inventories = [
 
     {
-        name: "Herbs: ",
+        name: "potions: ",
         value: 0
     },
 
     {
-        name: "Trimmer: ",
+        name: "Magic Spoons: ",
         value: 0
     },
 
     {
-        name: "SpeedGrowth: ",
+        name: "Magic Spoons: ",
         value: 0
     },
 
     {
-        name: "Gardener: ",
+        name: "fairies: ",
         value: 0
     },
-
-    {
-        name: "Sprinklers: ",
-        value: 0
-    }
 ]
 
 let upgrades = [
     {
-        name: "Trimmer",
+        name: "Magic Spoon",
+        value: 5
+    },
+
+    {
+        name: "spellbook",
         value: 10
+
     },
 
     {
-        name: "Speedgrowth",
-        value: 20
+        name: "fairy",
+        value: 5
     },
 
     {
-        name: "Gardener",
-        value: 30
-    },
-
-    {
-        name: "Sprinklers",
-        value: 40
+        name: "cauldron",
+        value: 10
     }
+
+
 ]
 
 let modifications = [
     {
-        name: "mod1",
+        name: "potions per sec. :",
         value: 0
     },
-    {
-        name: "mod2",
-        value: 0
-    }
 ]
 
 
@@ -65,15 +59,17 @@ let inventElem = document.getElementById("inventory")
 let upgradeElem = document.getElementById("upgrades")
 let modElem = document.getElementById("modification")
 
+
 //templates
 function inventoryTemplate(inventory) {
     return `<div class="col-4">
         <h5>${inventory.name}<span>${inventory.value}</span></h5>
     </div>`
 }
+
 function upgradeTemplate(upgrade) {
-    return `<div class="col-3">
-    <h5>${upgrade.name} $<button  id="buttons" onclick="getUpgrade()"><span>${upgrade.value}</span></button></h5>
+    return `<div class="col-3" id="upgrades">
+    <h5>${upgrade.name} <button  id="btn"  type = "button" onclick="getUpgrade()">$<span>${upgrade.value}</span></button></h5>
 </div>`
 }
 
@@ -112,14 +108,16 @@ function drawModifications() {
 }
 
 
+//Collection Functions
+
 function getResource() {
     let newCount = inventories[0].value++
     newCount
 
-    //let harvestInterval = setInterval(getResource, 500)
-
     if (inventories[1].value < upgrades[0].value) {
-
+        document.getElementById("btn").setAttribute("disabled", "disabled");
+    } else {
+        document.getElementById("btn").removeAttribute("disabled")
     }
 
     update()
@@ -129,16 +127,15 @@ function getUpgrade() {
     let getTrimmer = inventories[1].value++
     getTrimmer
 
-    let harvestInterval = setInterval(getResource, 500)
-
-    harvestInterval
-
+    startInterval()
     update()
 }
 
-//if  inventories[1].value = 1 which is the trimmers then auto count needs to happen on the inventory[0].value which is the herbs
 
-
+function startInterval() {
+    let harvestInterval = setInterval(getResource, 1000)
+    harvestInterval
+}
 
 
 function update() {
@@ -148,3 +145,4 @@ function update() {
 }
 
 update()
+

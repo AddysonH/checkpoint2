@@ -9,41 +9,50 @@
     <title>Game</title>
 </head>
 
-<body class="container-fluid">
+<body class="">
 
-    <header class="p-5">
+    <header class="p-4 bg-dkrBrown">
 
     </header>
 
-    <main>
+    <main class="container-fluid">
 
         <!--Image they click-->
-        <div class="row">
+        <div class="row banner img-fluid">
             <div class="col-12 text-center">
-                <img src="//placehold.it/200x200" onclick="getResource()">
+                <img src="https://cdn.pixabay.com/photo/2017/01/30/23/52/bubble-2022390_1280.png"
+                    onclick="getResource()">
             </div>
         </div>
 
         <div class="row">
 
-            <!--Upgrades Title-->
-            <div class="col-4">
+            <!--Upgrades-->
+            <div class="col-4 w-10">
                 <h1>Upgrades</h1>
-                <div class="row" id="upgrades"></div>
+                <div class="row">
+                    <div id="upgrades" class="container p-auto"></div>
+                </div>
             </div>
 
 
-            <!--Inventory Title-->
+            <!--Inventory-->
             <div class="col-4">
                 <h1>Inventory</h1>
-                <div class="row" id="inventory"></div>
+                <div class="row">
+                    <div id="inventory"></div>
+                </div>
             </div>
 
 
-            <!--Modification Stats Title-->
+            <!--Modification Stats-->
             <div class="col-4">
                 <h1>Mod Stats</h1>
-                <div class="row my-3" id="modification"></div>
+                <div class="row my-3">
+                    <div id="modification">
+
+                    </div>
+                </div>
             </div>
 
 
@@ -68,7 +77,6 @@
             <div class="col-12">
                 <h1>Upgrades</h1>
             </div>
-        </div>
    
 
         Upgrades 
@@ -93,7 +101,7 @@
 
     </main>
 
-    <footer class="p-5"></footer>
+    <footer class="p-3 bg-dkrBrown"></footer>
 
 
 
