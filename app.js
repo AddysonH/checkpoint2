@@ -1,3 +1,5 @@
+
+
 let inventories = [
 
     {
@@ -11,7 +13,7 @@ let inventories = [
     },
 
     {
-        name: "Magic Spoons: ",
+        name: "Spell Book: ",
         value: 0
     },
 
@@ -56,6 +58,8 @@ let modifications = [
 
 //elements
 let inventElem = document.getElementById("inventory")
+let fairyElem = document.getElementById("fairies")
+
 let upgradeElem = document.getElementById("upgrades")
 let modElem = document.getElementById("modification")
 
@@ -67,9 +71,21 @@ function inventoryTemplate(inventory) {
     </div>`
 }
 
+function fairyInventory(inventory) {
+    return `<div class="col-4">
+        <h5>${inventory[3].name}<span>${inventory[3].value}</span></h5>
+    </div>`
+}
+
+function fairyUpgrade(upgrade) {
+    return `<div class="col-3 text-align" id="upgrades">
+    <h5>${upgrade[2].name} <button  id="btn"  type = "button" onclick="getFairy()">$<span>${upgrade[2].value}</span></button></h5>
+</div>`
+}
+
 function upgradeTemplate(upgrade) {
-    return `<div class="col-3" id="upgrades">
-    <h5>${upgrade.name} <button  id="btn"  type = "button" onclick="getUpgrade()">$<span>${upgrade.value}</span></button></h5>
+    return `<div class="col-3 text-align" id="upgrades">
+    <h5>${upgrade.name} <button  id="btn"  type = "button" onclick="getSpoon()">$<span>${upgrade.value}</span></button></h5>
 </div>`
 }
 
@@ -79,6 +95,8 @@ function modTemplate(modification) {
 </div > `
 }
 
+
+
 //drawFunctions
 function drawInventory() {
     let template = " "
@@ -87,6 +105,15 @@ function drawInventory() {
     })
 
     inventElem.innerHTML = template
+}
+
+function drawFairies() {
+    let template = " "
+    inventories.forEach(inventory => {
+        template += fairyInventory(inventory)
+    })
+
+    fairyElem.innerHTML = template
 }
 
 function drawUpgrades() {
@@ -105,36 +132,57 @@ function drawModifications() {
     })
 
     modElem.innerHTML = template
+
 }
 
-
-//Collection Functions
 
 function getResource() {
     let newCount = inventories[0].value++
     newCount
 
+    /*
     if (inventories[1].value < upgrades[0].value) {
         document.getElementById("btn").setAttribute("disabled", "disabled");
     } else {
         document.getElementById("btn").removeAttribute("disabled")
     }
+*/
 
     update()
 }
 
-function getUpgrade() {
-    let getTrimmer = inventories[1].value++
-    getTrimmer
+function getSpoon() {
+    let spoonCount = inventories[1].value++
+    spoonCount
+    //This needs to be x2
 
-    startInterval()
+    // modifications.forEach(modification => {
+    //   modification.value++
+    //  })
+
+
+    //startInterval()
     update()
 }
+
+
+function getFairy() {
+    let fairyCount = inventories[3].value++
+    fairyCount
+
+
+
+    update()
+}
+
+
 
 
 function startInterval() {
     let harvestInterval = setInterval(getResource, 1000)
     harvestInterval
+
+    update()
 }
 
 
@@ -142,7 +190,10 @@ function update() {
     drawUpgrades()
     drawInventory()
     drawModifications()
+    drawFairies()
 }
 
 update()
+
+
 
