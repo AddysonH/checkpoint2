@@ -150,9 +150,15 @@ function getUpgrades(upgradeName, upgradeValue) {
                 inventory.stock++
                 clickMod += inventory.clickValue
                 if (inventory.name.toLowerCase() === "fairies: ") {
-                    autoMod = 1
+                    autoMod += 1
                     modifications[0].value = autoMod;
                     setInterval(startInterval, 1000)
+                }
+
+                if (inventory.name.toLowerCase() === "cauldron: ") {
+                    autoMod += 2
+                    modifications[0].value = autoMod;
+                    setInterval(startInterval, 1000 * 2)
                 }
             }
         })
