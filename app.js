@@ -28,6 +28,12 @@ let inventories = [
         stock: 0
 
     },
+
+    {
+        name: "cauldron: ",
+        value: 10,
+        stock: 0
+    }
 ]
 
 let upgrades = [
@@ -66,9 +72,6 @@ let modifications = [
 //elements
 let inventoryElem = document.getElementById("spoon")
 let totalElem = document.getElementById("total")
-
-
-
 let fairyElem = document.getElementById("fairies")
 let upgradeElem = document.getElementById("upgrades")
 let modElem = document.getElementById("modification")
@@ -146,8 +149,12 @@ function getUpgrades(upgradeName, upgradeValue) {
             if (inventory.name.toLowerCase() === upgradeName.toLowerCase()) {
                 inventory.stock++
                 clickMod += inventory.clickValue
+                if (inventory.name.toLowerCase() === "fairies: ") {
+                    autoMod = 1
+                    modifications[0].value = autoMod;
+                    setInterval(startInterval, 1000)
+                }
             }
-
         })
     }
 
@@ -186,29 +193,16 @@ function getSpellBook() {
 
 
 //TODO increase autoMod when buying fairy or cauldron
-function getFairy() {
-    let fairyCount = inventories[3].value++
-    fairyCount
-
-    update()
-}
-
-function getCauldron() {
-
-}
 
 
 
 function startInterval() {
-    setInterval(() => {
-        potions += autoMod
-        update()
-    }, 1000)
-
+    console.log("Counting")
+    potions += autoMod
 
     update()
 }
-//startInterval()
+
 
 
 
@@ -217,6 +211,8 @@ function update() {
     drawInventory()
     drawModifications()
     totalElem.innerHTML = "potions " + potions.toString()
+    //modElem.innerHTML += autoMod.toString()
+
 }
 
 update()
