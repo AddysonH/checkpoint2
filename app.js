@@ -1,47 +1,54 @@
 
 
+
+//NOTE create a global autoMod and clickMod
+//increase correct mod on purchase
+
+let clickMod = 1
+let autoMod = 0
+let potions = 0
+
+
 let inventories = [
-
-    {
-        name: "potions: ",
-        value: 0
-    },
-
     {
         name: "Magic Spoons: ",
-        value: 0
+        clickValue: 2,
+        stock: 0
     },
 
     {
         name: "Spell Book: ",
-        value: 0
+        clickValue: 5,
+        stock: 0
     },
 
     {
         name: "fairies: ",
-        value: 0
+        clickValue: 0,
+        stock: 0
+
     },
 ]
 
 let upgrades = [
     {
-        name: "Magic Spoon",
+        name: "magic spoons: ",
         value: 5
     },
 
     {
-        name: "spellbook",
+        name: "spell book: ",
         value: 10
 
     },
 
     {
-        name: "fairy",
+        name: "fairies: ",
         value: 5
     },
 
     {
-        name: "cauldron",
+        name: "cauldron: ",
         value: 10
     }
 
@@ -57,36 +64,35 @@ let modifications = [
 
 
 //elements
-let inventElem = document.getElementById("inventory")
-let fairyElem = document.getElementById("fairies")
+let inventoryElem = document.getElementById("spoon")
+let totalElem = document.getElementById("total")
 
+
+
+let fairyElem = document.getElementById("fairies")
 let upgradeElem = document.getElementById("upgrades")
 let modElem = document.getElementById("modification")
 
 
 //templates
+
 function inventoryTemplate(inventory) {
     return `<div class="col-4">
-        <h5>${inventory.name}<span>${inventory.value}</span></h5>
+        <h5>${inventory.name}<span>${inventory.stock}</span></h5>
     </div>`
 }
 
-function fairyInventory(inventory) {
-    return `<div class="col-4">
-        <h5>${inventory[3].name}<span>${inventory[3].value}</span></h5>
-    </div>`
-}
-
-function fairyUpgrade(upgrade) {
-    return `<div class="col-3 text-align" id="upgrades">
-    <h5>${upgrade[2].name} <button  id="btn"  type = "button" onclick="getFairy()">$<span>${upgrade[2].value}</span></button></h5>
-</div>`
-}
-
+// function upgradeTemplate(upgrade) {
+//     return `<div class="col-3 text-align" id="upgrades">
+//     <h5>${upgrade.name} <button  id="btn"  type = "button" onclick="getUpgrades(${upgrade})">$<span>${upgrade.value}</span></button></h5>
+// </div>
+// `
+// }
 function upgradeTemplate(upgrade) {
     return `<div class="col-3 text-align" id="upgrades">
-    <h5>${upgrade.name} <button  id="btn"  type = "button" onclick="getSpoon()">$<span>${upgrade.value}</span></button></h5>
-</div>`
+    <h5>${upgrade.name} <button  id="btn"  type = "button" onclick="getUpgrades('${upgrade.name}', ${upgrade.value})">$<span>${upgrade.value}</span></button></h5>
+</div>
+`
 }
 
 function modTemplate(modification) {
@@ -96,24 +102,13 @@ function modTemplate(modification) {
 }
 
 
-
 //drawFunctions
 function drawInventory() {
     let template = " "
     inventories.forEach(inventory => {
         template += inventoryTemplate(inventory)
     })
-
-    inventElem.innerHTML = template
-}
-
-function drawFairies() {
-    let template = " "
-    inventories.forEach(inventory => {
-        template += fairyInventory(inventory)
-    })
-
-    fairyElem.innerHTML = template
+    inventoryElem.innerHTML = template
 }
 
 function drawUpgrades() {
@@ -135,65 +130,97 @@ function drawModifications() {
 
 }
 
-
 function getResource() {
-    let newCount = inventories[0].value++
-    newCount
+    potions += clickMod
+    console.log(potions)
 
-    /*
-    if (inventories[1].value < upgrades[0].value) {
-        document.getElementById("btn").setAttribute("disabled", "disabled");
-    } else {
-        document.getElementById("btn").removeAttribute("disabled")
+    update()
+}
+
+
+function getUpgrades(upgradeName, upgradeValue) {
+    if (potions >= upgradeValue) {
+        potions -= upgradeValue
+
+        inventories.forEach(inventory => {
+            if (inventory.name.toLowerCase() === upgradeName.toLowerCase()) {
+                inventory.stock++
+                clickMod += inventory.clickValue
+            }
+
+        })
     }
+
+    update()
+}
+
+// function getUpgrades(upgradeName, upgradeValue) {
+//     if (potions >= 5) {
+//         clickMod += inventories[0].clickValue
+//         potions -= 5
+//         inventories[0].stock++
+//         //upgrades[0].value++
+
+//     }
+
+//     update()
+// }
+
+//TODO create getSpellbook as well as cauldron
+
+/*
+function getSpellBook() {
+
+    if (potions >= 10) {
+        clickMod += inventories[1].clickValue
+        potions -= 10
+        inventories[1].stock++
+        //upgrades[1].value++
+    }
+
+    update()
+}
+
 */
 
-    update()
-}
-
-function getSpoon() {
-    let spoonCount = inventories[1].value++
-    spoonCount
-    //This needs to be x2
-
-    // modifications.forEach(modification => {
-    //   modification.value++
-    //  })
 
 
-    //startInterval()
-    update()
-}
-
-
+//TODO increase autoMod when buying fairy or cauldron
 function getFairy() {
     let fairyCount = inventories[3].value++
     fairyCount
 
-
-
     update()
 }
 
+function getCauldron() {
+
+}
 
 
 
 function startInterval() {
-    let harvestInterval = setInterval(getResource, 1000)
-    harvestInterval
+    setInterval(() => {
+        potions += autoMod
+        update()
+    }, 1000)
+
 
     update()
 }
+//startInterval()
+
 
 
 function update() {
     drawUpgrades()
     drawInventory()
     drawModifications()
-    drawFairies()
+    totalElem.innerHTML = "potions " + potions.toString()
 }
 
 update()
+
 
 
 
